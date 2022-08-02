@@ -14,6 +14,7 @@ def pull_links_newegg():
     
     for l in soup.find_all('a'):
         links.append(str(l.get('href')))
+    print(links)
         
     parse1 = [i for i in links if 'rtx' in i or 'rx' in i]
     parse2 = [i for i in parse1 if '?' not in i or '=' not in i]
