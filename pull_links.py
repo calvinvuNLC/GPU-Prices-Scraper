@@ -8,29 +8,29 @@ def pull_links_newegg():
     amd = []
     nvidia = []
     
-    # for x in range(1,3):
-    r = requests.get('https://www.newegg.com/Desktop-Graphics-Cards/SubCategory/ID-48?Tid=7709', headers=headers)
-    soup = BeautifulSoup(r.content, 'html.parser')
-    
-    for l in soup.find_all('a'):
-        links.append(str(l.get('href')))
-    print(links)
+    for x in range(1,3):
+        r = requests.get('https://www.newegg.com/Desktop-Graphics-Cards/SubCategory/ID-48?Tid=7709', headers=headers)
+        soup = BeautifulSoup(r.content, 'html.parser')
         
-    parse1 = [i for i in links if 'rtx' in i or 'rx' in i]
-    parse2 = [i for i in parse1 if '?' not in i or '=' not in i]
-    parse3 = [*set(parse2)]
-    
-    for l in parse3:
-        r = requests.get(l)
-        soup = BeautifulSoup(r.text, "html.parser")
-        price = soup.find("span", attrs={"class": "price-current-label"})
-        name = str(soup.find("h1", class_='product-title').text)
-        pricesymbol = '$' + price.next_sibling.next_sibling.text + price.next_sibling.next_sibling.next_sibling.text
-    
-        if "RTX" in name[:50]:
-            nvidia.append((name[:60]+"...",pricesymbol,l))
-        else:
-            amd.append((name[:60]+"...",pricesymbol,l))
+        for l in soup.find_all('a'):
+            links.append(str(l.get('href')))
+        # print(links)
+            
+        parse1 = [i for i in links if 'rtx' in i or 'rx' in i]
+        parse2 = [i for i in parse1 if '?' not in i or '=' not in i]
+        parse3 = [*set(parse2)]
+        
+        for l in parse3:
+            r = requests.get(l)
+            soup = BeautifulSoup(r.text, "html.parser")
+            price = soup.find("span", attrs={"class": "price-current-label"})
+            name = str(soup.find("h1", class_='product-title').text)
+            pricesymbol = '$' + price.next_sibling.next_sibling.text + price.next_sibling.next_sibling.next_sibling.text
+        
+            if "RTX" in name[:50]:
+                nvidia.append((name[:60]+"...",pricesymbol,l))
+            else:
+                amd.append((name[:60]+"...",pricesymbol,l))
             
     
     amd.sort(key = lambda x: x[1])
