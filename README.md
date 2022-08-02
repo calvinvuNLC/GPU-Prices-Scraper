@@ -1,3 +1,3 @@
 # GPU-Prices-Scraper
 
-A scraper that retrieves links and GPU Prices from popular online electronics vendor Newegg. Data is stored locally on a file. Uses BS4.  
+Python program that retrieves links and GPU (AMD & Nvidia) prices from online vendor Newegg. Data pulled is then stored locally. Uses python library BS4.
