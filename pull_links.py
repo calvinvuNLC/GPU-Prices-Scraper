@@ -9,8 +9,8 @@ def pull_links_newegg():
     amd = []
     nvidia = []
     
-    for x in range(1,3):
-        r = requests.get('https://www.newegg.com/Desktop-Graphics-Cards/SubCategory/ID-48?Tid=7709', headers=headers)
+    for x in range(1,4):
+        r = requests.get('https://www.newegg.com/Desktop-Graphics-Cards/SubCategory/ID-48/Page-{x}?Tid=7709', headers=headers)
         soup = BeautifulSoup(r.content, 'html.parser')
         
         for l in soup.find_all('a'):
