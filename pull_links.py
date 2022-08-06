@@ -59,4 +59,8 @@ def pull_links_newegg():
     
     os.popen("open prices.txt")
     
-pull_links_newegg()
+def main():
+    pull_links_newegg()
+
+if __name__ == "__main__":
+    main()
