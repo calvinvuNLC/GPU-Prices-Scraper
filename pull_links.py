@@ -52,7 +52,7 @@ def pull_links():
         html.write(x[1] + " ")
         html.write(x[0] + "\n")
         hyperlink_format = '<p><a href="{link}">{text}</a></p>\n'
-        html.write(hyperlink_format.format(link=x[2], text='LINK'))
+        html.write(hyperlink_format.format(link=x[2], text=x[2]))
     
     for x in nvidia:
         print(x[1], x[0])
