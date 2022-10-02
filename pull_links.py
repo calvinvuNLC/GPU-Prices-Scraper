@@ -2,14 +2,14 @@ from bs4 import BeautifulSoup
 import requests
 import os
 
-def pull_links_newegg():
+def pull_links():
     headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.5 Safari/605.1.15'}
 
     links = []
     amd = []
     nvidia = []
     
-    for x in range(1,4):
+    for x in range(1,5):
         r = requests.get('https://www.newegg.com/Desktop-Graphics-Cards/SubCategory/ID-48/Page-{x}?Tid=7709', headers=headers)
         soup = BeautifulSoup(r.content, 'html.parser')
         
@@ -37,30 +37,50 @@ def pull_links_newegg():
     amd.sort(key = lambda x: x[1])
     nvidia.sort(key = lambda x: x[1])
     
-    file1 = open('prices.txt', 'w')
+    file = open('prices.txt', 'w')
+    html = open('links.html', 'w')
+    html.write("<!DOCTYPE html>\n")
+    html.write("<html>\n")
+    
     
     for x in amd:
         print(x[1], x[0])
-        file1.write(x[1] + " ")
-        file1.write(x[0] + "\n")
+        file.write(x[1] + " ")
+        file.write(x[0] + "\n")
         print(x[2])
-        file1.write(x[2] + "\n\n")
+        file.write(x[2] + "\n\n")
         print()
+        html.write(x[1] + " ")
+        html.write(x[0] + "\n")
+        # hyperlink_format = '<p><a href="{link}">{text}</a></p>\n'
+        html.write("<p><a href=""{x[2]}"">{LINK}</a></p>\n")
     
     for x in nvidia:
         print(x[1], x[0])
-        file1.write(x[1] + " ")
-        file1.write(x[0] + "\n")
+        file.write(x[1] + " ")
+        file.write(x[0] + "\n")
         print(x[2])
-        file1.write(x[2] + "\n\n")
+        file.write(x[2] + "\n\n")
         print()
+        html.write(x[1] + " ")
+        html.write(x[0] + "\n")
+        # hyperlink_format = '<p><a href="{link}">{text}</a></p>\n'
+        html.write("<p><a href=""{x[2]}"">{LINK}</a></p>\n")
     
-    file1.close()
+    file.close()
     
     os.popen("open prices.txt")
     
+def html_test():
+    html = open('links.html', 'w')
+    html.write("<!DOCTYPE html>\n")
+    html.write("<html>\n")
+    html.write("name\n")
+    html.write("<p><a href=""LINK"">LINK</a></p>\n")
+    html.write("<html>")
+    
 def main():
-    pull_links_newegg()
+    pull_links()
 
 if __name__ == "__main__":
     main()
