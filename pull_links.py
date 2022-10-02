@@ -52,8 +52,8 @@ def pull_links():
         print()
         html.write(x[1] + " ")
         html.write(x[0] + "\n")
-        # hyperlink_format = '<p><a href="{link}">{text}</a></p>\n'
-        html.write("<p><a href=""{x[2]}"">{LINK}</a></p>\n")
+        hyperlink_format = '<p><a href="{link}">{text}</a></p>\n'
+        html.write(hyperlink_format.format(link=x[2], text='LINK'))
     
     for x in nvidia:
         print(x[1], x[0])
@@ -64,10 +64,12 @@ def pull_links():
         print()
         html.write(x[1] + " ")
         html.write(x[0] + "\n")
-        # hyperlink_format = '<p><a href="{link}">{text}</a></p>\n'
-        html.write("<p><a href=""{x[2]}"">{LINK}</a></p>\n")
+        hyperlink_format = '<p><a href="{link}">{text}</a></p>\n'
+        html.write(hyperlink_format.format(link=x[2], text='LINK'))
     
+    html.write("<html>")
     file.close()
+    html.close()
     
     os.popen("open prices.txt")
     
