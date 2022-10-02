@@ -1,4 +1,6 @@
+from distutils import file_util
 from bs4 import BeautifulSoup
+import webbrowser
 import requests
 import os
 
@@ -15,7 +17,6 @@ def pull_links():
         
         for l in soup.find_all('a'):
             links.append(str(l.get('href')))
-        # print(links)
             
         parse1 = [i for i in links if 'rtx' in i or 'rx' in i]
         parse2 = [i for i in parse1 if '?' not in i or '=' not in i]
@@ -33,7 +34,6 @@ def pull_links():
             else:
                 amd.append((name[:60]+"...",pricesymbol,l))
             
-    
     amd.sort(key = lambda x: x[1])
     nvidia.sort(key = lambda x: x[1])
     
@@ -41,7 +41,6 @@ def pull_links():
     html = open('links.html', 'w')
     html.write("<!DOCTYPE html>\n")
     html.write("<html>\n")
-    
     
     for x in amd:
         print(x[1], x[0])
@@ -70,19 +69,15 @@ def pull_links():
     html.write("<html>")
     file.close()
     html.close()
-    
     os.popen("open prices.txt")
     
 def html_test():
-    html = open('links.html', 'w')
-    html.write("<!DOCTYPE html>\n")
-    html.write("<html>\n")
-    html.write("name\n")
-    html.write("<p><a href=""LINK"">LINK</a></p>\n")
-    html.write("<html>")
+    filename = 'file:///'+os.getcwd()+'/' + 'links.html'
+    webbrowser.open(filename)
     
 def main():
-    pull_links()
+   pull_links()
+   html_test()
 
 if __name__ == "__main__":
     main()
